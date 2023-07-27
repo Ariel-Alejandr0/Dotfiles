@@ -1,2 +1,2 @@
 # Dotfiles
-This is the dotfiles of my BSPWM rice.
+Those are the dotfiles of my BSPWM rice.
