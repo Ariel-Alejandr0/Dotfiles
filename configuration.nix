@@ -13,7 +13,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -47,13 +47,13 @@
   services.xserver.enable = true;
 
   # Enable the Pantheon Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "br";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Configure console keymap
@@ -63,14 +63,17 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  # Remove deprecated sound.enable
+  hardware.pulseaudio.enable = false;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    #jack.enable = true;
+  
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -92,11 +95,12 @@
       firefox
       kitty
       neofetch
-      pkgs.gnome.gnome-tweaks
+      pkgs.gnome-tweaks
       libreoffice
       pkgs.cava
       pkgs.htop
-  #  thunderbird
+      vscode
+      #  thunderbird
     ];
   };
 
@@ -111,6 +115,7 @@
      wget
      pkgs.google-chrome
      git
+     gcc
      pkgs.pfetch
  ];
 
@@ -139,6 +144,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
 }
